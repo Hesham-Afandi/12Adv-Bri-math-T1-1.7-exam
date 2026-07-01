@@ -142,6 +142,15 @@
     </footer>
 
 <script>
+// ==================== إعدادات EmailJS ====================
+const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
+const SERVICE_ID = "service_w15m64i";
+const TEMPLATE_ID = "template_5b0u2tq";
+const TARGET_EMAIL = "mohammedhesham872@gmail.com";
+
+// تهيئة EmailJS عند تحميل الصفحة
+emailjs.init(PUBLIC_KEY);
+
 const originalExamData = {
     sections: [
         {
@@ -608,7 +617,7 @@ function sendResultsToEmail() {
     const btn = document.getElementById('sendEmailBtn');
     const status = document.getElementById('emailStatus');
     btn.disabled = true;
-    btn.textContent = currentLang === 'ar' ? '⏳ جاري الإرسال...' : '⏳ Sending...';
+    btn.textContent = currentLang === 'ar' ? '⏳ جاري الإرسال...' : '📤 Sending...';
 
     const name = document.getElementById('studentName').value || 'N/A';
     const studentClass = document.getElementById('studentClass').value || 'N/A';
@@ -765,7 +774,7 @@ function sendResultsToEmail() {
     `;
 
     const templateParams = {
-        to_email: "mohammedhesham872@gmail.com",
+        to_email: TARGET_EMAIL,
         student_name: name,
         student_class: studentClass,
         exam_date: date,
@@ -775,7 +784,7 @@ function sendResultsToEmail() {
         answers_table: answersHTML
     };
 
-    emailjs.send("service_w15m64i", "template_5b0u2tq", templateParams)
+    emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams)
         .then(() => {
             status.textContent = currentLang === 'ar' 
                 ? '✅ تم إرسال النتائج بنجاح!' 
@@ -798,6 +807,7 @@ window.addEventListener('DOMContentLoaded', () => {
     prepareShuffledExam();
     renderExam();
     startTimer();
+    console.log('🔀 تم خلط الأسئلة والخيارات عشوائياً!');
 });
 </script>
 </body>
